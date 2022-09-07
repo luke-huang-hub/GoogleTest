@@ -24,7 +24,41 @@ int Positive(int nNum)
 }
 
 // 测试入参2是否为正整数
-TEST(PositiveTest, HandlesPositiveInput) { EXPECT_EQ(Positive(2), 0); }
+TEST(PositiveTest, HandlesPositiveInput) { EXPECT_EQ(Positive(2), 0) << "25455555"; }
+
+// 定义测试类FooTest
+class FooTest : public testing::Test
+{
+protected:
+  // Code here will be called immediately after the constructor (right before each test)
+  void SetUp() { m_nTarget = 5; }
+
+  // Code here will be called immediately after each test (right before the destructor)
+  void TearDown() {}
+
+public:
+  int IsLargeThan5(const int& nNum);
+  int m_nTarget;
+};
+
+// 判断入参是否大于5：如果是，则返回0；否则返回-1
+int FooTest::IsLargeThan5(const int& nNum)
+{
+  if (nNum > m_nTarget)
+  {
+    return 0;
+  }
+  else
+  {
+    return -1;
+  }
+}
+
+TEST_F(FooTest, HandlesInput6) { EXPECT_EQ(IsLargeThan5(6), 0); }
+
+TEST_F(FooTest, HandlesInput5) { EXPECT_EQ(IsLargeThan5(5), 0); }
+
+TEST_F(FooTest, HandlesInput4) { EXPECT_EQ(IsLargeThan5(4), -1); }
 
 int main(int argc, char* argv[])
 {
